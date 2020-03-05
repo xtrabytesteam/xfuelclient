@@ -264,16 +264,29 @@ void SetSecretBytes(const unsigned char vch[32]) {
         if (rec<0 || rec>=3)
             return false;
         ECDSA_SIG *sig = ECDSA_SIG_new();
-        const BIGNUM *sig_r, *sig_s;
-        ECDSA_SIG_get0(sig, &sig_r, &sig_s);
+        if (!sig) return false;
 
-        BN_bin2bn(&p64[0],  32, sig_r);
-        BN_bin2bn(&p64[32], 32, sig_s);
-        bool ret = ECDSA_SIG_recover_key_GFp(pkey, sig, (unsigned char*)&hash, sizeof(hash), rec, 0) == 1;
+        // sig_r and sig_s are deallocated by ECDSA_SIG_free(sig);
+        BIGNUM *sig_r = BN_bin2bn(&p64[0],32,BN_new());
+        BIGNUM *sig_s = BN_bin2bn(&p64[32],32,BN_new());
+        if (!sig_r || !sig_s) return false;
+
+        // copy and transfer ownership to sig
+        ECDSA_SIG_set0(sig, sig_r, sig_s);    
+
+        EC_KEY_free(pkey);
+        pkey = EC_KEY_new_by_curve_name(NID_secp256k1);
+
+
+       if (ECDSA_SIG_recover_key_GFp(pkey, sig, (unsigned char*)&hash, sizeof(hash), rec, 0) == 1) {
         ECDSA_SIG_free(sig);
-        return ret;
+        return true;
+       }
+       ECDSA_SIG_free(sig);
+       return false;
     }
-};
+
+ };
 
 }; // end of anonymous namespace
 
