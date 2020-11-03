@@ -15,7 +15,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->setupUi(this);
 
     // Set current copyright year
-    ui->copyrightLabel->setText(tr("Copyright") + QString(" &copy; 2017-2019 The XFuel developers") + QString("<br>") );
+    ui->copyrightLabel->setText(tr("Copyright") + QString(" &copy; 2017-2020 The XFUEL developers") + QString("<br>") );
 }
 
 void AboutDialog::setModel(ClientModel *model)

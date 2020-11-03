@@ -8,7 +8,7 @@
 // Name of client reported in the 'version' message. Report the same name
 // for both xfueld and xfuel-qt, to make it harder for attackers to
 // target servers or GUI users specifically.
-const std::string CLIENT_NAME("XFuel");
+const std::string CLIENT_NAME("XFUEL");
 
 // Client version number
 #define CLIENT_VERSION_SUFFIX   ""
