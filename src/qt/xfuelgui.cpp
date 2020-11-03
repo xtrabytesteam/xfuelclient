@@ -70,7 +70,7 @@ XFuelGUI::XFuelGUI(QWidget *parent) :
     restoreWindowGeometry();
     setFixedSize(800, 600);
     statusBar()->setSizeGripEnabled(false);
-    setWindowTitle(tr("XFuel") + " - " + tr("Wallet"));
+    setWindowTitle(tr("XFUEL") + " - " + tr("Wallet"));
 	qApp->setStyleSheet("QMainWindow { background-image:url(:images/xfuelbkg) ;background-repeat: no-repeat; background-position:center;border:none; font-family:'Open Sans,sans-serif'; }");
 #ifndef Q_OS_MAC
     QApplication::setWindowIcon(QIcon(":icons/xfuel"));
@@ -176,7 +176,7 @@ void XFuelGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to a XFuel address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to a XFUEL address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
@@ -218,14 +218,14 @@ void XFuelGUI::createActions()
     quitAction->setStatusTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/xfuel"), tr("&About XFuel"), this);
-    aboutAction->setStatusTip(tr("Show information about XFuel"));
+    aboutAction = new QAction(QIcon(":/icons/xfuel"), tr("&About XFUEL"), this);
+    aboutAction->setStatusTip(tr("Show information about XFUEL"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setStatusTip(tr("Modify configuration options for XFuel"));
+    optionsAction->setStatusTip(tr("Modify configuration options for XFUEL"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(QIcon(":/icons/xfuel"), tr("&Show / Hide"), this);
     toggleHideAction->setStatusTip(tr("Show or hide the main Window"));
@@ -238,9 +238,9 @@ void XFuelGUI::createActions()
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your XFuel addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your XFUEL addresses to prove you own them"));
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified XFuel addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified XFUEL addresses"));
 
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
@@ -380,12 +380,12 @@ void XFuelGUI::createTrayIcon()
 #ifndef Q_OS_MAC
     trayIcon = new QSystemTrayIcon(this);
 
-    trayIcon->setToolTip(tr("XFuel client"));
+    trayIcon->setToolTip(tr("XFUEL client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     trayIcon->show();
 #endif
 
-    notificator = new Notificator(QApplication::applicationName(), trayIcon);
+    notificator = new Notificator(QApplication::applicationName(), trayIcon, this);
 }
 
 void XFuelGUI::createTrayIconMenu()
@@ -521,7 +521,7 @@ void XFuelGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to XFuel network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to XFUEL network", "", count));
 }
 
 void XFuelGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -620,7 +620,7 @@ void XFuelGUI::setNumBlocks(int count, int nTotalBlocks)
 
 void XFuelGUI::message(const QString &title, const QString &message, unsigned int style, bool *ret)
 {
-    QString strTitle = tr("XFuel"); // default title
+    QString strTitle = tr("XFUEL"); // default title
     // Default to information icon
     int nMBoxIcon = QMessageBox::Information;
     int nNotifyIcon = Notificator::Information;
@@ -751,7 +751,7 @@ void XFuelGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             walletFrame->gotoSendCoinsPage();
         else
-            message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid XFuel address or malformed URI parameters."),
+            message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid XFUEL address or malformed URI parameters."),
                       CClientUIInterface::ICON_WARNING);
     }
 
@@ -774,7 +774,7 @@ void XFuelGUI::handleURI(QString strURI)
 {
     // URI has to be valid
     if (!walletFrame->handleURI(strURI))
-        message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid XFuel address or malformed URI parameters."),
+        message(tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid XFUEL address or malformed URI parameters."),
                   CClientUIInterface::ICON_WARNING);
 }
 
